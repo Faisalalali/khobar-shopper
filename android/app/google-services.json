@@ -29,6 +29,13 @@
             {
               "client_id": "821518387513-7slloivsmrfdk8jaup61ckcf6057fno5.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "821518387513-k9nnfa104eijvf743fpcie4p72a816ga.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.khobarShopper"
+              }
             }
           ]
         }
