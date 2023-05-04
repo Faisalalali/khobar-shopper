@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import 'home_view.dart';
+
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});
 
@@ -18,8 +20,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
   }
 
   final List<Widget> _children = [
-    CartScreen(),
-    HomeScreen(),
+    ProfileScreen(),
+    HomeView(),
     CartScreen(),
   ];
 
@@ -34,11 +36,17 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return Scaffold(
       body: _children[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        selectedItemColor: Theme.of(context).colorScheme.onPrimary,
+        unselectedItemColor: Theme.of(context).colorScheme.onPrimary,
+        showUnselectedLabels: false,
+        iconSize: 25,
+        selectedFontSize: 12,
         onTap: onTabTapped,
         currentIndex: _selectedIndex,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.person),
             label: 'Settings',
           ),
           BottomNavigationBarItem(
@@ -46,20 +54,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
           ),
         ],
       ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Home Screen'),
     );
   }
 }
