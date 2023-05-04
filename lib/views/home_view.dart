@@ -29,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView(
+          clipBehavior: Clip.none,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10,
