@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
-import 'home_view.dart';
+import 'package:khobar_shopper/exports/screens.dart'
+    show ProfileScreen, HomeScreen, CartScreen;
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});
@@ -21,7 +21,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   final List<Widget> _children = [
     ProfileScreen(),
-    HomeView(),
+    HomeScreen(),
     CartScreen(),
   ];
 
@@ -59,24 +59,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ProfileScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Profile Screen'),
-    );
-  }
-}
-
-class CartScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Cart Screen'),
     );
   }
 }
