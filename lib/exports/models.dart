@@ -1,0 +1,1 @@
+export 'package:khobar_shopper/models/customer.dart';
