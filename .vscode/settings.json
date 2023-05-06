@@ -1,0 +1,11 @@
+{
+  // this is here to make sure the code is formatted uniformly, cuz my normal line length is 160...
+  // one day everyone will have an ultrawide monitor and use 160, and then I can remove this :D
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.rulers": [80],
+    "editor.defaultFormatter": "Dart-Code.dart-code"
+  },
+  "dart.lineLength": 80,
+}
