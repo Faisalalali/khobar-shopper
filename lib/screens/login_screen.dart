@@ -1,4 +1,5 @@
 import 'package:flutter/gestures.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:khobar_shopper/exports/models.dart' show Customer;
 import 'package:khobar_shopper/exports/providers.dart'
     show
@@ -97,6 +98,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       showLoadingIndicator(false);
       throw e;
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    FlutterNativeSplash.remove();
   }
 
   @override
