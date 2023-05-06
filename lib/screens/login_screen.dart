@@ -195,25 +195,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   label: 'Next',
                   onPressed: () async {
                     if (connected) {
-                      if (!_isLoading) {
-                        if (onSubmit()) {
-                          try {
-                            showLoadingIndicator(true);
-                            await loginAndNavigate();
-                          } catch (e) {
-                            if (e.toString() == 'Email not verified') {
-                              user.setEmail(emailController.text.trim());
-                              Navigator.pushNamed(context, Routes.verification);
-                            } else {
-                              if (mounted) {
-                                context.showSnackBarError(e.toString());
-                              }
-                            }
-                          }
-                        }
-                      }
-                    } else {
                       context.showSnackBarError('No connection to internet');
+                      return;
+                    }
+                    if (_isLoading || !onSubmit()) {
+                      return;
+                    }
+                    try {
+                      showLoadingIndicator(true);
+                      await loginAndNavigate();
+                    } catch (e) {
+                      if (e.toString() == 'Email not verified') {
+                        user.setEmail(emailController.text.trim());
+                        Navigator.pushNamed(context, Routes.verification);
+                      } else if (mounted) {
+                        context.showSnackBarError(e.toString());
+                      }
                     }
                   },
                 ),

@@ -34,17 +34,16 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     setState(() {
       _submitted = true;
     });
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      FocusScope.of(context).unfocus();
-      if (passwordController.text == confirmPasswordController.text) {
-        return true;
-      } else {
-        context.showSnackBarError('The two passwords aren\'t the same');
-        return false;
-      }
+    if (!_formKey.currentState!.validate()) {
+      return false;
     }
-    return false;
+    _formKey.currentState!.save();
+    FocusScope.of(context).unfocus();
+    if (passwordController.text != confirmPasswordController.text) {
+      context.showSnackBarError('The two passwords aren\'t the same');
+      return false;
+    }
+    return true;
   }
 
   /// To show the loading indicator
@@ -82,7 +81,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      //TODO ADD LOO
+                      //TODO ADD LOGO
                       SizedBox(height: 150),
                       Form(
                         key: _formKey,
@@ -175,28 +174,26 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       CustomFlatButton(
                         label: 'Next',
                         onPressed: () async {
-                          if (connected) {
-                            if (!_isLoading) {
-                              if (onSubmit()) {
-                                try {
-                                  showLoadingIndicator(true);
-                                  user.setEmail(emailController.text.trim());
-                                  await auth.registerWithEmailAndPassword(
-                                    emailController.text.trim(),
-                                    passwordController.text.trim(),
-                                  );
-                                  showLoadingIndicator(false);
-                                  Navigator.pushNamed(
-                                      context, Routes.verification);
-                                } catch (e) {
-                                  showLoadingIndicator(false);
-                                  context.showSnackBarError(e.toString());
-                                }
-                              }
-                            }
-                          } else {
+                          if (!connected) {
                             context
                                 .showSnackBarError('No connection to internet');
+                            return;
+                          }
+                          if (_isLoading || !onSubmit()) {
+                            return;
+                          }
+                          try {
+                            showLoadingIndicator(true);
+                            user.setEmail(emailController.text.trim());
+                            await auth.registerWithEmailAndPassword(
+                              emailController.text.trim(),
+                              passwordController.text.trim(),
+                            );
+                            showLoadingIndicator(false);
+                            Navigator.pushNamed(context, Routes.verification);
+                          } catch (e) {
+                            showLoadingIndicator(false);
+                            context.showSnackBarError(e.toString());
                           }
                         },
                       ),
