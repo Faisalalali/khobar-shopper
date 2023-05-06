@@ -201,7 +201,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 CustomFlatButton(
                   label: 'Next',
                   onPressed: () async {
-                    if (connected) {
+                    if (!connected) {
                       context.showSnackBarError('No connection to internet');
                       return;
                     }
