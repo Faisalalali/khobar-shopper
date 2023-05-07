@@ -60,6 +60,18 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         hintTextDirection: TextDirection.ltr,
         errorStyle: TextStyle(fontSize: 11, overflow: TextOverflow.ellipsis),
         errorMaxLines: 3,
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              obscureText = !obscureText;
+            });
+          },
+          child: Icon(
+            obscureText ? Icons.visibility_off : Icons.visibility,
+            size: 22,
+            color: AppColor.darkBlue,
+          ),
+        ),
       ),
       validator: (String? text) {
         if (text == null || text.isEmpty) {

@@ -114,7 +114,6 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.all(12.0),
@@ -136,8 +135,10 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                               children: [
                                 Text(
                                   'Personal Information',
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 Card(
                                   elevation: 5,
@@ -155,7 +156,9 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                                           'Name',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .titleMedium,
+                                              .titleMedium!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(height: 10),
                                         NameTextField(
@@ -167,7 +170,9 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                                           'Phone Number',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .titleMedium,
+                                              .titleMedium!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(height: 10),
                                         PhoneTextField(
@@ -181,8 +186,10 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                                 SizedBox(height: 15),
                                 Text(
                                   'Personal Address',
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 Card(
                                   elevation: 5,
@@ -200,7 +207,9 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                                           'City',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .titleMedium,
+                                              .titleMedium!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(height: 10),
                                         CityDropDown(
@@ -217,7 +226,9 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                                           'Building',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .titleMedium,
+                                              .titleMedium!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(height: 10),
                                         BuildingTextField(
@@ -229,7 +240,9 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                                           'Street',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .titleMedium,
+                                              .titleMedium!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(height: 10),
                                         StreetTextField(
@@ -241,7 +254,9 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                                           'Zip Code',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .titleMedium,
+                                              .titleMedium!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(height: 10),
                                         ZipCodeTextField(

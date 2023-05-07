@@ -86,11 +86,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
       }
       showLoadingIndicator(false);
       // If it doesn't exists then we need to register the user.
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        Routes.registration,
-        (routes) => false,
-      );
+      Navigator.pushNamed(context, Routes.registration);
       return;
     } catch (e) {
       showLoadingIndicator(false);
