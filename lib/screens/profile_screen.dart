@@ -4,7 +4,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Cart Screen'),
+      child: Text('Profiel Screen'),
     );
   }
 }

@@ -143,7 +143,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         children: [
                           Text(
                             'Email',
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 10),
                           EmailTextField(
@@ -153,7 +153,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           SizedBox(height: 15),
                           Text(
                             'Password',
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context).textTheme.titleMedium!
+                                .copyWith(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 10),
                           PasswordTextField(

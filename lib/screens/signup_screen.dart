@@ -97,8 +97,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               children: [
                                 Text(
                                   'Email',
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 10),
                                 EmailTextField(
@@ -108,8 +110,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                 SizedBox(height: 15),
                                 Text(
                                   'Password',
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 10),
                                 PasswordTextField(
@@ -121,8 +125,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                 SizedBox(height: 15),
                                 Text(
                                   'Confirm Password',
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 10),
                                 PasswordTextField(
