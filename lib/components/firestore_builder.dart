@@ -1,5 +1,5 @@
 import 'package:khobar_shopper/exports/components.dart' show SplashScreen;
-import 'package:khobar_shopper/exports/models.dart' show Customer;
+import 'package:khobar_shopper/exports/models.dart' show Customer, Product;
 import 'package:khobar_shopper/exports/providers.dart'
     show authProvider, firestoreProvider, userProvider;
 import 'package:khobar_shopper/exports/screens.dart'

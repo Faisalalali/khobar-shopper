@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:khobar_shopper/exports/models.dart' show Customer;
+import 'package:khobar_shopper/exports/models.dart' show Customer, Product;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// To access [FirestoreProvider].
