@@ -36,7 +36,9 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
     final auth = ref.read(authProvider);
     while (_seconds > 0) {
       isVerified = await auth.checkEmailVerification();
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
       if (isVerified) {
         await getUserDataAndNavigate();
         break;
@@ -85,6 +87,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
         return;
       }
       showLoadingIndicator(false);
+      
       // If it doesn't exists then we need to register the user.
       Navigator.pushNamed(context, Routes.registration);
       return;

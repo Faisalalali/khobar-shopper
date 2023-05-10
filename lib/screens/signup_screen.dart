@@ -29,7 +29,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   bool _isLoading = false;
 
   // Methods
-  /// This method is to check whether the textfield is filled with required data
+  /// This method is to check whether the textfields are filled with data
   bool onSubmit() {
     setState(() {
       _submitted = true;
