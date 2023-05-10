@@ -1,18 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:khobar_shopper/exports/utils.dart' show AppColor;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:khobar_shopper/exports/utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:riverpod/riverpod.dart';
+import 'dart:convert';
+import 'product_view.dart';
 
-class HomeScreen extends StatefulWidget {
+// Providers
+final productsProvider = StreamProvider<List<Map<String, dynamic>>>((ref) {
+  // Get a reference to the Firestore collection
+  CollectionReference productsRef =
+      FirebaseFirestore.instance.collection('item');
+
+  // Return a stream of the documents in the collection
+  return productsRef.snapshots().map((querySnapshot) => querySnapshot.docs
+      .map((doc) => doc.data() as Map<String, dynamic>)
+      .toList());
+});
+
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // _firestore = context.read(firestoreProvider);
+  }
+
   // Methods
-  ElevatedButton getCard() {
+  ElevatedButton createCard(String name, double price, String? image,
+      String? description, double? rating, List<dynamic>? category) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Container(
+              child: ProductView(
+                name: name,
+                price: price,
+                image: base64.decode(image ?? ''),
+                description: description,
+                rating: rating,
+                category: category,
+              ),
+            );
+          },
+        );
+      },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
         maximumSize: const Size(150, 180),
@@ -32,7 +73,14 @@ class _HomeScreenState extends State<HomeScreen> {
             left: 0,
             right: 0,
             bottom: 80,
-            child: Placeholder(color: Colors.grey),
+            child: image != null
+                ? Image.memory(
+                    base64.decode(image),
+                    fit: BoxFit.contain,
+                  )
+                : Placeholder(
+                    color: Colors.grey,
+                  ),
           ),
           // Title and description
           Positioned(
@@ -43,12 +91,12 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Title',
+                  name,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(height: 4),
                 Text(
-                  'Description',
+                  description ?? '',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
@@ -62,12 +110,12 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  '99.99',
+                  price.toString(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 Text(
                   'SAR',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],
             ),
@@ -80,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Icon(Icons.star, size: 16, color: AppColor.darkBlue),
                 SizedBox(width: 4),
                 Text(
-                  '4.5',
+                  rating.toString() ?? '-',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],
@@ -111,24 +159,41 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: GridView(
-          clipBehavior: Clip.none,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          children: [
-            getCard(),
-            getCard(),
-            getCard(),
-            getCard(),
-            getCard(),
-            getCard(),
-            getCard(),
-            getCard(),
-            getCard(),
-          ],
+        child: Consumer(
+          builder: (context, watch, child) {
+            AsyncValue<List<Map<String, dynamic>>> products =
+                ref.watch(productsProvider);
+
+            // Handle loading and error states
+            return products.when(
+              data: (data) {
+                debugPrint('data: $data');
+                return GridView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    Map<String, dynamic> product = data[index];
+
+                    // Display the product in a ListTile
+                    return createCard(
+                      product['name'],
+                      product['price'],
+                      product['image'],
+                      product['description'] ?? null,
+                      product['rating'] ?? null,
+                      product['category'] ?? null,
+                    );
+                  },
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                );
+              },
+              loading: () => CircularProgressIndicator(),
+              error: (error, stackTrace) => Text('Error: $error'),
+            );
+          },
         ),
       ),
     );
